@@ -1,0 +1,103 @@
+<div>
+  <h2>新增员工</h2>
+</div>
+<hr>
+<form class="container-sm" style="margin: 40px 0px 0px 0px">
+  <div class="mb-3 row">
+    <label for="name" class="col-sm-2 col-form-label">工号：</label>
+    <div class="col-sm-10" [formGroup]="myForm">
+      <input type="text" class="form-control" [(ngModel)]="employees.eno" name="eno" id="eno" formControlName="myNumber">
+      <small class="text-danger"
+             *ngIf="employees.eno === ''">
+        工号不能为空
+      </small>
+      <small class="text-danger"
+             *ngIf="myForm.get('myNumber').errors?.fiveDigitNumberStartingWith">
+        工号必须是以3开头的5位数,例：30001。
+      </small>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="name" class="col-sm-2 col-form-label">身份证号：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" [(ngModel)]="employees.cardid" name="cardid" id="cardid">
+      <small class="text-danger"
+             *ngIf="employees.cardid === ''">
+        身份证号不能为空
+      </small>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="name" class="col-sm-2 col-form-label">姓名：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" [(ngModel)]="employees.name" name="name" id="name">
+      <small class="text-danger"
+             *ngIf="employees.name === ''">
+        姓名不能为空
+      </small>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">性别：</label>
+    <div class="col-sm-10">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="gender-male"
+               name="gender"
+               [(ngModel)]="employees.gender"
+               [value]="0">
+        <label class="form-check-label" for="gender-male">男</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" id="gender-female"
+               name="gender"
+               [(ngModel)]="employees.gender"
+               [value]="1">
+        <label class="form-check-label" for="gender-female">女</label>
+      </div>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="name" class="col-sm-2 col-form-label">电话号码：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" [(ngModel)]="employees.phone" name="phone" id="phone">
+      <small class="text-danger"
+             *ngIf="employees.phone === ''">
+        电话号码不能为空
+      </small>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="name" class="col-sm-2 col-form-label">公司名称：</label>
+    <div class="col-sm-10">
+      <select class="form-control" [(ngModel)]="employees.company" name="employees.company" id="employees.company">
+        <option disabled style="font-weight: bold;">孵化公司</option>
+        <option *ngFor="let incubator of incubators" [value]="incubator.ino">
+          {{incubator.ino}}
+        </option>
+        <option disabled style="font-weight: bold;">创业公司</option>
+        <option *ngFor="let startup of startups" [value]="startup.sno">
+          {{startup.sno}}
+        </option>
+      </select>
+      <small class="text-danger"
+             *ngIf="employees.company === ''">
+        公司不能为空
+      </small>
+    </div>
+  </div>
+  <div class="mb-3 row" style="margin: 30px 0px 0px 0px">
+    <div class="col-sm-3 offset-sm-1" style="margin: 0px 0px 0px 200px">
+      <button class="btn btn-primary" (click)="onSubmit()"
+              [disabled]="employees.name === '' ||
+                          employees.eno === '' ||
+                          employees.cardid === '' ||
+                          employees.gender === '' ||
+                          employees.phone === '' ||
+myForm.get('myNumber').errors?.fiveDigitNumberStartingWith"><i class="fa fa-save"></i>保存
+      </button>
+    </div>
+    <div class="col-sm-3 offset-sm-1">
+      <button mat-button class="btn btn-secondary" (click)="onNoClick()">取消</button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,104 @@
+// 定义变量
+$primary-color: #990099
+$secondary-color: #F5F5F5
+$hover-color: #E0E0E0
+$font-stack: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+
+// 基础样式
+body, html
+  height: 100%
+  margin: 0
+  font-family: $font-stack
+
+
+// 顶部导航栏样式
+.top-bar
+  height: 180px
+  width: 100%
+  background-color: $primary-color
+  color: white
+  display: flex
+  align-items: center
+  padding: 10px 10px
+  margin: 10px 20px -20px -16px
+  box-shadow: -50px 2px 4px rgba(0,0,0,0.1)
+  position: fixed
+  z-index: 999
+
+  .title
+    margin: 25px 10px -40px 20px
+    font-size: 33px
+    font-weight: bold
+
+
+  .name
+    margin-left: 80%
+    cursor: pointer
+    color: white
+
+
+  .logout
+    margin-top: 60px
+    margin-left: 1410px
+    font-size: 33px
+    cursor: pointer
+    color: white
+
+// 侧边导航栏样式
+.sidebar
+  ul
+    list-style-type: none
+    margin: 58px 10px 20px -16px
+    padding: 0
+    width: 180px
+    background-color: $secondary-color
+    position: fixed
+    top: 60px
+    height: 100%
+    overflow: auto
+
+    li
+      a
+        font-size: 20px
+        color: black
+        padding: 10px
+        text-align: center
+        border-radius: 5px
+        text-decoration: none
+
+        &:hover
+          background-color: $hover-color
+
+
+
+
+
+
+// 激活状态样式
+.active
+  background-color: $primary-color
+  color: white
+
+
+// 页脚样式
+.footer
+  background-color: $primary-color
+  color: #333
+  font-size: 19px
+  text-align: center
+  line-height: 53px
+  padding: 10px 20px
+  margin: 10px 100px -10px -16px
+  position: fixed
+  bottom: 0
+  width: 100%
+  height: 80px
+  box-shadow: 0 -2px 4px rgba(0,0,0,0.1)
+  z-index: 999
+
+
+// 导航栏品牌样式
+.navbar-brand
+  font-size: 20px
+  text-decoration: none
+

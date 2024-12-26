@@ -1,0 +1,71 @@
+<div>
+  <h2>编辑项目</h2>
+</div>
+<hr>
+<form class="container-sm" [formGroup]="formGroup" style="margin: 40px 0px 0px 0px">
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">项目编号：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" formControlName="num">
+      <small class="text-danger" *ngIf="!formGroup.get('num')!.value">
+        项目编号不能为空
+      </small>
+      <small class="text-danger"
+             *ngIf="formGroup.get('num').errors?.fiveDigitNumberStartingWith">
+        项目编号必须是以5开头的5位数,例：50001。
+      </small>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">公司名称：</label>
+    <div class="col-sm-10">
+      <select class="form-control" formControlName="startup_id">
+        <option *ngFor="let startup of startups" [value]="startup.id">
+          {{startup.sno}}
+        </option>
+      </select>
+      <small class="text-danger"
+             *ngIf="!formGroup.get('startup_id')!.value">
+        公司不能为空
+      </small>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">投资方：</label>
+    <div class="col-sm-10">
+      <select class="form-control" formControlName="investor_id">
+        <option *ngFor="let investor of investors" [value]="investor.id">
+          {{investor.num}}
+        </option>
+      </select>
+      <small class="text-danger"
+             *ngIf="!formGroup.get('investor_id')!.value">
+        投资方不能为空
+      </small>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">孵化员工：</label>
+    <div class="col-sm-10">
+      <select class="form-control" formControlName="incubator_id">
+        <option *ngFor="let incubator of incubators" [value]="incubator.employees.id">
+          {{incubator.employees.eno}}
+        </option>
+      </select>
+      <small class="text-danger"
+             *ngIf="!formGroup.get('incubator_id')!.value">
+        孵化员工不能为空
+      </small>
+    </div>
+  </div>
+  <div class="mb-3 row" style="margin: 40px 0px 0px 0px">
+    <div class="col-sm-3 offset-sm-1" style="margin: 0px 0px 0px 200px">
+      <button appLoading class="btn btn-primary" (click)="onSubmit()" [disabled]="formGroup.invalid || formGroup.pending">
+        <i class="fa fa-save"></i>保存
+      </button>
+    </div>
+    <div class="col-sm-3 offset-sm-1">
+      <button mat-button class="btn btn-secondary" (click)="onNoClick()">取消</button>
+    </div>
+  </div>
+</form>

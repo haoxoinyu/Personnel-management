@@ -1,0 +1,65 @@
+<div>
+  <h2>编辑孵化公司</h2>
+</div>
+<hr>
+<form class="container-sm" [formGroup]="formGroup" style="margin: 40px 0px 0px 0px">
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">公司代码：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" formControlName="ino">
+      <small class="text-danger" *ngIf="!formGroup.get('ino')!.value">
+        公司代码不能为空
+      </small>
+      <small class="text-danger"
+             *ngIf="formGroup.get('ino').errors?.fiveDigitNumberStartingWith">
+        公司代码必须是以1开头的5位数,例：10001。
+      </small>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">名称：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" [formControl]="nameFormControl">
+      <small class="text-danger" *ngIf="nameFormControl.invalid">
+        名称不能为空
+      </small>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">法人姓名：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" formControlName="legal_name">
+      <small class="text-danger" *ngIf="formGroup.get('legal_name')!.invalid">
+        法人姓名不能为空
+      </small>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">地址：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" formControlName="address">
+      <small class="text-danger" *ngIf="formGroup.get('address')!.invalid">
+        地址不能为空
+      </small>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">电话号码：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" formControlName="phone">
+      <small class="text-danger" *ngIf="formGroup.get('phone')!.invalid">
+        电话号码不能为空
+      </small>
+    </div>
+  </div>
+  <div class="mb-3 row" style="margin: 40px 0px 0px 0px">
+    <div class="col-sm-3 offset-sm-1" style="margin: 0px 0px 0px 200px">
+      <button appLoading class="btn btn-primary" (click)="onSubmit()" [disabled]="formGroup.invalid || formGroup.pending">
+        <i class="fa fa-save"></i>保存
+      </button>
+    </div>
+    <div class="col-sm-3 offset-sm-1">
+      <button mat-button class="btn btn-secondary" (click)="onNoClick()">取消</button>
+    </div>
+  </div>
+</form>

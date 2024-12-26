@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-3">
+  <div class="top-bar">
+    <div class="title">人事管理系统</div>
+    <form class="form-inline logout" (ngSubmit)="onLogout()">
+      <div class="navbar-brand">欢迎</div>
+      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">退出登录</button>
+    </form>
+  </div>
+
+  <div>
+    <div class="sidebar">
+      <ul>
+        <li class="nav-item">
+          <a class="nav-link"
+             routerLink=""
+             routerLinkActive="active"
+             [routerLinkActiveOptions]="{exact: true}">首页 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item" *ngFor="let menu of menus" routerLinkActive="active">
+          <a class="nav-link" routerLink="{{menu.url}}">{{menu.name}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2024 HXY 人事管理系统</p>
+  </footer>
+</nav>

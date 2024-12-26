@@ -1,0 +1,89 @@
+<div class="container-md main">
+  <div>
+    <div class="col-md-12">
+      <form class="form d-flex" (ngSubmit)="onSubmit(searchForm)" #searchForm="ngForm">
+        <div class="form-group col-md-auto">
+          <label>项目编号：</label>
+          <input name="num" type="text" class="form-control" placeholder="项目编号..." [(ngModel)]="searchParameters.num">
+        </div>
+        <div class="form-group col-auto">
+          <label>创业公司：</label>
+          <!-- 默认提示选项 -->
+          <select class="form-control search" [(ngModel)]="searchParameters.startup_id" name="startup_id" id="startup_id">
+            <option [ngValue]="null">所有公司</option>
+            <option *ngFor="let startup of startups" [value]="startup.id">
+              {{startup.sno}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col-auto">
+          <label>投资方：</label>
+          <!-- 默认提示选项 -->
+          <select class="form-control search" [(ngModel)]="searchParameters.investor_id" name="investor_id" id="investor_id">
+            <option [ngValue]="null">所有投资方</option>
+            <option *ngFor="let investor of investors" [value]="investor.id">
+              {{investor.num}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col-auto">
+          <label>孵化员工：</label>
+          <!-- 默认提示选项 -->
+          <select class="form-control search" [(ngModel)]="searchParameters.incubator_id" name="incubator_id" id="incubator_id">
+            <option [ngValue]="null">所有孵化员工</option>
+            <option *ngFor="let incubator of incubators" [value]="incubator.employees.id">
+              {{incubator.employees.eno}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col-md-auto">
+          <button class="btn btn-outline-success" type="submit">查询</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md" style="margin: -53px 0px 0px 1350px; width: 120px">
+      <button class="btn btn-primary mr-2" (click)="openAddDialog()"><i class="fas fa-plus"></i>新增</button>
+    </div>
+  </div>
+
+  <table class="table table-striped mt-2" style="width: 1450px">
+    <thead>
+    <tr class="table-primary">
+      <th>序号</th>
+      <th>项目编号</th>
+      <th>创业公司</th>
+      <th>投资方</th>
+      <th>孵化员工</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let project of pageData.content; index as index">
+      <td>{{index + 1}}</td>
+      <td>{{project.num}}</td>
+      <td>{{project.startup.sno}}</td>
+      <td>{{project.investors.num}}</td>
+      <td>
+        <div *ngFor="let incubator of incubators">
+          <div *ngIf="incubator.employees.id === project.incubatorEmployee.incubator_id">
+            {{incubator.employees.eno}}
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="btn-inline">
+          <a class="btn btn-outline-primary btn-sm" (click)="openEditDialog(project.id)">
+            <i class="fas fa-pen"></i>编辑
+          </a>
+        </div>
+        <div class="btn-inline">
+        <span class="btn btn-sm btn-outline-danger" (click)="onDelete(index, project.id)">
+            <i class="far fa-trash-alt"></i>删除
+        </span>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <app-page [page]="pageData" (bePageChange)="onPage($event)"></app-page>
+</div>

@@ -1,0 +1,53 @@
+<div>
+  <h2>新增投资方</h2>
+</div>
+<hr>
+<form class="container-sm" style="margin: 40px 0px 0px 0px">
+  <div class="mb-3 row">
+    <label for="name" class="col-sm-2 col-form-label">资方编号：</label>
+    <div class="col-sm-10" [formGroup]="myForm">
+      <input type="text" class="form-control" [(ngModel)]="investors.num" name="num" id="num" formControlName="myNumber">
+      <small class="text-danger"
+             *ngIf="investors.num === ''">
+        资方编号不能为空
+      </small>
+      <small class="text-danger"
+             *ngIf="myForm.get('myNumber').errors?.fiveDigitNumberStartingWith">
+        资方编号必须是以4开头的5位数,例：40001。
+      </small>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="name" class="col-sm-2 col-form-label">姓名：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" [(ngModel)]="investors.name" name="name" id="name">
+      <small class="text-danger"
+             *ngIf="investors.name === ''">
+        姓名不能为空
+      </small>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="name" class="col-sm-2 col-form-label">电话号码：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" [(ngModel)]="investors.phone" name="phone" id="phone">
+      <small class="text-danger"
+             *ngIf="investors.phone === ''">
+        电话号码不能为空
+      </small>
+    </div>
+  </div>
+  <div class="mb-3 row" style="margin: 30px 0px 0px 0px">
+    <div class="col-sm-3 offset-sm-1" style="margin: 0px 0px 0px 200px">
+      <button class="btn btn-primary" (click)="onSubmit()"
+              [disabled]="investors.name === '' ||
+                          investors.num === '' ||
+                          investors.phone === '' ||
+myForm.get('myNumber').errors?.fiveDigitNumberStartingWith"><i class="fa fa-save"></i>保存
+      </button>
+    </div>
+    <div class="col-sm-3 offset-sm-1">
+      <button mat-button class="btn btn-secondary" (click)="onNoClick()">取消</button>
+    </div>
+  </div>
+</form>

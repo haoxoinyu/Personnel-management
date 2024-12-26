@@ -1,0 +1,89 @@
+<div class="container-md main">
+  <div>
+    <div class="col-md-12">
+      <form class="form d-flex" (ngSubmit)="onSubmit(searchForm)" #searchForm="ngForm">
+        <div class="form-group col-auto">
+          <label>工号：</label>
+          <input name="num" type="text" class="form-control" placeholder="工号..." [(ngModel)]="searchParameters.eno">
+        </div>
+        <div class="form-group col-auto">
+          <label>姓名：</label>
+          <input name="name" type="text" class="form-control" placeholder="姓名..." [(ngModel)]="searchParameters.name">
+        </div>
+        <div class="form-group col-auto">
+          <label class="mr-2">公司名称：</label>
+          <!-- 默认提示选项 -->
+          <select class="form-control search" [(ngModel)]="searchParameters.company" name="company" id="company">
+            <option [ngValue]="null">所有公司</option>
+            <option *ngFor="let incubator of incubators" [value]="incubator.ino">
+              {{incubator.ino}}
+            </option>
+            <option *ngFor="let startup of startups" [value]="startup.sno">
+              {{startup.sno}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col-auto search-button">
+          <button class="btn btn-outline-success" type="submit">查询</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md" style="margin: -53px 0px 0px 1350px; width: 120px">
+      <button class="btn btn-primary mr-2" (click)="openAddDialog()"><i class="fas fa-plus"></i>新增</button>
+    </div>
+  </div>
+
+  <table class="table table-striped mt-2" style="width: 1450px">
+    <thead>
+    <tr class="table-primary">
+      <th>序号</th>
+      <th>工号</th>
+      <th>身份证号</th>
+      <th>姓名</th>
+      <th>性别</th>
+      <th>电话</th>
+      <th>公司名称</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let employees of pageData.content; index as index">
+      <td>{{index + 1}}</td>
+      <td>{{employees.eno}}</td>
+      <td>{{employees.cardid}}</td>
+      <td>{{employees.name}}</td>
+      <td>{{employees.gender}}</td>
+      <td>{{employees.phone}}</td>
+      <td>
+        <div *ngIf="employees.incubatorEmployee[0]">
+          <div *ngFor="let incubator of incubators">
+            <div *ngIf="incubator.id === employees.incubatorEmployee[0].incubator_id">
+              {{incubator.ino}}
+            </div>
+          </div>
+        </div>
+        <div *ngIf="employees.startupEmployee[0]">
+          <div *ngFor="let startup of startups">
+            <div *ngIf="startup.id === employees.startupEmployee[0].startup_id">
+              {{startup.sno}}
+            </div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div class="btn-inline">
+          <a class="btn btn-outline-primary btn-sm" (click)="openEditDialog(employees.id)">
+            <i class="fas fa-pen"></i>编辑
+          </a>
+        </div>
+        <div class="btn-inline">
+        <span class="btn btn-sm btn-outline-danger" (click)="onDelete(index, employees.id)">
+            <i class="far fa-trash-alt"></i>删除
+        </span>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <app-page [page]="pageData" (bePageChange)="onPage($event)"></app-page>
+</div>

@@ -1,0 +1,76 @@
+<div>
+  <h2>新增项目</h2>
+</div>
+<hr>
+<form class="container-sm" style="margin: 40px 0px 0px 0px">
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">项目编号：</label>
+    <div class="col-sm-10" [formGroup]="myForm">
+      <input type="text" class="form-control" [(ngModel)]="project.num" name="num" id="num" formControlName="myNumber">
+      <small class="text-danger"
+             *ngIf="project.num === ''">
+        项目编号不能为空
+      </small>
+      <small class="text-danger"
+             *ngIf="myForm.get('myNumber').errors?.fiveDigitNumberStartingWith">
+        项目编号必须是以5开头的5位数,例：50001。
+      </small>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">创业公司：</label>
+    <div class="col-sm-10">
+      <select class="form-control" [(ngModel)]="project.startup_id" name="project.startup_id" id="project.startup_id">
+        <option *ngFor="let startup of startups" [value]="startup.id">
+          {{startup.sno}}
+        </option>
+      </select>
+      <small class="text-danger"
+             *ngIf="project.startup_id === ''">
+        公司不能为空
+      </small>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">投资方：</label>
+    <div class="col-sm-10">
+      <select class="form-control" [(ngModel)]="project.investor_id" name="project.investor_id" id="project.investor_id">
+        <option *ngFor="let investor of investors" [value]="investor.id">
+          {{investor.num}}
+        </option>
+      </select>
+      <small class="text-danger"
+             *ngIf="project.investor_id === ''">
+        投资方不能为空
+      </small>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">孵化人员：</label>
+    <div class="col-sm-10">
+      <select class="form-control" [(ngModel)]="project.incubator_id" name="project.incubator_id" id="project.incubator_id">
+        <option *ngFor="let incubator of incubators" [value]="incubator.employees.id">
+          {{incubator.employees.eno}}
+        </option>
+      </select>
+      <small class="text-danger"
+             *ngIf="project.incubator_id === ''">
+        孵化员工不能为空
+      </small>
+    </div>
+  </div>
+  <div class="mb-3 row" style="margin: 30px 0px 0px 0px">
+    <div class="col-sm-3 offset-sm-1" style="margin: 0px 0px 0px 200px">
+      <button class="btn btn-primary" (click)="onSubmit()"
+              [disabled]="project.num === '' ||
+                          project.startup_id === '' ||
+                          project.investor_id === '' ||
+                          project.incubator_id === '' ||
+myForm.get('myNumber').errors?.fiveDigitNumberStartingWith"><i class="fa fa-save"></i>保存
+      </button>
+    </div>
+    <div class="col-sm-3 offset-sm-1">
+      <button mat-button class="btn btn-secondary" (click)="onNoClick()">取消</button>
+    </div>
+  </div>
+</form>
